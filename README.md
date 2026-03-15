@@ -1,3 +1,3 @@
-# DSA210 Project
+# dsa210 project
 
-This repository contains my DSA210 project.
+this repository contains my dsa210 project.
