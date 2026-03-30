@@ -60,6 +60,17 @@ Exploratory analysis visualizes the distribution of key variables across income 
 * **H3:** Regression of life expectancy on healthcare expenditure (per capita and % of GDP), controlling for income level.
 * **H4:** Mediation analysis and interaction models to test whether healthcare efficiency moderates the GDP effect on life expectancy.
 
+
+## 6.3 Machine Learning Analysis
+
+Machine learning methods are used to complement statistical inference with predictive modeling of life expectancy outcomes:
+
+- **Regression models:** Linear Regression (baseline), Ridge, Lasso, ElasticNet, Random Forest, Gradient Boosting, and SVR — predicting life expectancy at birth (years) from GDP per capita, healthcare expenditure per capita, and healthcare spending as % of GDP.
+- **Explainability:** SHAP values computed on the best-performing tree-based model to quantify each feature's contribution and test the mediation effect proposed in H4.
+- **Classification task:** Countries classified into life expectancy tiers (Low / Middle / High) based on income group, healthcare spending level, and regional indicators.
+- **Clustering:** K-Means and hierarchical clustering to identify countries that achieve high life expectancy despite moderate GDP — empirical test of H4.
+- **Evaluation:** Time-aware train–test split (pre-2015 train, 2015–present test); regression evaluated using RMSE and R²; classification using accuracy, F1-score, and confusion matrices; clustering using silhouette scores.
+
 ---
 
 ## 7. Expected Results
