@@ -43,6 +43,13 @@ This project examines how GDP per capita and healthcare spending are associated 
 | **WHO / World Bank** | Life expectancy at birth (years) | Primary health outcome of interest |
 | **UN Human Development Reports** | HDI, education, urbanization (optional) | Control variables for robustness checks |
 
+### 4.1 Data Collection Methods
+
+- **World Bank – WDI (GDP per capita):** World Bank Open Data REST API via `wbdata` Python library.
+- **WHO Global Health Expenditure Database (Healthcare Expenditure):** Bulk download from `apps.who.int/nha/database`.
+- **WHO / World Bank (Life Expectancy):** World Bank API using the life expectancy indicator.
+- **UN Human Development Reports (HDI, Education, Urbanization):** Bulk CSV download from `hdr.undp.org/data-center`.
+
 
 ---
 
