@@ -1,89 +1,93 @@
-# Airline Ticket Prices vs Oil & Fuel Costs
+# Economic Development and Health Outcomes: GDP, Healthcare Spending, and Life Expectancy
+
+---
 
 ## 1. Motivation
-Throughout the last decades, the relationship between energy prices and transportation costs has been an important concern globally. Airlines rely heavily on fuel, and increases in oil and jet fuel prices can significantly affect operational costs. This often leads to higher ticket prices or additional charges such as fuel surcharges.  
 
-However, this relationship is not always straightforward: some airlines absorb fuel costs through efficiency or hedging strategies, while others directly pass the costs to passengers.  
+Throughout the last decades, the relationship between economic development and population health has been a concern globally. Countries with higher GDP often have more opportunity to invest in healthcare systems, which can lead to better health outcomes — specifically higher life expectancy. However, the relationship is not always straightforward: some countries achieve high life expectancy despite lower GDP, suggesting that efficient healthcare spending and strong public health policies can make up for economic restrictions.
 
-This project examines how oil and jet fuel prices are associated with airline ticket prices and airline financial outcomes. Using multiple datasets, the study investigates whether fuel costs directly increase ticket prices or whether the effect is mediated through airline strategies such as surcharges and operational adjustments.
+This project examines how GDP per capita and healthcare spending are associated with life expectancy across countries. Using official cross-national datasets, the study investigates whether economics directly improves health outcomes, or whether the impact is mediated by the level and efficiency of healthcare investment.
 
 ---
 
 ## 2. Research Questions and Sub-Questions
 
-### Main Question  
-How do oil and fuel costs affect airline ticket prices?
+**Main Question**
 
-### Sub-Questions  
-- Does higher oil and jet fuel price lead to higher airline ticket prices?  
-- Do fuel surcharges increase when fuel prices rise?  
-- Do airlines respond differently depending on route type or airline category?  
-- Do conflict-related disruptions affect ticket prices and fuel costs?  
+* How do economic development indicators — such as GDP and healthcare spending — affect life expectancy across countries?
 
----
+**Sub-Questions**
 
-## 3. Hypotheses  
-
-- **H1:** Higher oil and jet fuel prices will lead to higher airline ticket prices  
-- **H2:** Fuel surcharges will increase as fuel prices rise  
-- **H3:** Airlines operating long-haul routes will be more affected by fuel price increases  
-- **H4:** Conflict-related disruptions will amplify the effect of fuel prices on ticket prices  
-- **H0 (Null):** Oil and fuel prices have no significant relationship with airline ticket prices  
+1. Does higher GDP per capita lead to higher life expectancy?
+2. Does higher public and private healthcare spending improve life expectancy, even in countries with moderate GDP?
+3. Are countries with similar GDP but different healthcare spending levels showing significant differences in life expectancy?
 
 ---
 
-## 4. Data Description  
+## 3. Hypotheses
+
+* **H1:** Regions with higher GDP per capita and lower healthcare inefficiency will have higher levels of life expectancy.
+* **H2:** Countries with higher GDP per capita will show higher life expectancy.
+* **H3:** Higher healthcare expense (per capita or as % of GDP) is positively associated with longer life expectancy.
+* **H4:** The relationship between economic advantage and life expectancy weakens when healthcare spending efficiency is controlled for — countries with similar GDP but better-allocated health budgets achieve superior outcomes.
+* **H0 (Null):** GDP and healthcare spending have no significant relationship with life expectancy.
+
+---
+
+## 4. Data Description
 
 | Dataset | Variables | Purpose |
-|--------|----------|--------|
-| airline_ticket_prices.csv | Ticket price, fuel surcharge, airline, route | Main airfare data |
-| oil_jet_fuel_prices.csv | Brent crude, jet fuel price | Fuel price indicators |
-| fuel_surcharges.csv | Surcharge values by airline | Measures cost pass-through |
-| route_cost_impact.csv | Route cost, fuel usage | Operational impact |
-| airline_financial_impact.csv | Revenue, fuel cost, profit | Airline financial outcomes |
-| conflict_oil_events.csv | Conflict events, oil shocks | External disruptions |
+| --- | --- | --- |
+| **World Bank – World Development Indicators (WDI)** | GDP per capita (constant USD) | Main indicator of economic development |
+| **World Bank WDI / WHO Global Health Expenditure Database** | Total healthcare expenditure per capita (USD) and % of GDP | Measures investment in healthcare systems |
+| **WHO / World Bank** | Life expectancy at birth (years) | Primary health outcome of interest |
+| **UN Human Development Reports** | HDI, education, urbanization (optional) | Control variables for robustness checks |
+
+### 4.1 Data Collection Methods
+
+- **World Bank – WDI (GDP per capita):** World Bank Open Data REST API via `wbdata` Python library.
+- **WHO Global Health Expenditure Database (Healthcare Expenditure):** Bulk download from `apps.who.int/nha/database`.
+- **WHO / World Bank (Life Expectancy):** World Bank API using the life expectancy indicator.
+- **UN Human Development Reports (HDI, Education, Urbanization):** Bulk CSV download from `hdr.undp.org/data-center`.
+
 
 ---
 
-## 4.1 Data Collection Methods  
+## 6. Methodology
 
-- **Airline Ticket Prices:** CSV dataset including fare components and airline characteristics  
-- **Oil and Jet Fuel Prices:** Monthly fuel price data including Brent crude and jet fuel prices  
-- **Fuel Surcharges:** Airline-level surcharge data  
-- **Route Cost Impact:** Route-level fuel consumption and cost dataset  
-- **Airline Financial Impact:** Financial performance dataset including fuel costs and profit  
-- **Conflict Events:** Dataset containing geopolitical events affecting oil supply and aviation  
+### 6.1 Exploratory Data Analysis
+
+Exploratory analysis visualizes the distribution of key variables across income groups and regions, time trends in GDP, healthcare spending, and life expectancy, and the bivariate relationships between economic and health indicators.
 
 ---
 
-## 6. Methodology  
+### 6.2 Hypothesis Testing
 
-### 6.1 Exploratory Data Analysis  
-Exploratory analysis visualizes distributions of ticket prices, fuel prices, and surcharges, as well as time trends and relationships between fuel costs and airfare.  
+* **H1 & H2:** Correlation analysis and grouped comparisons (low / middle / high income countries) to assess the GDP–life expectancy relationship.
+* **H3:** Regression of life expectancy on healthcare expenditure (per capita and % of GDP), controlling for income level.
+* **H4:** Mediation analysis and interaction models to test whether healthcare efficiency moderates the GDP effect on life expectancy.
 
----
 
-### 6.2 Hypothesis Testing  
+### 6.3 Machine Learning Analysis
 
-- **H1 & H2:** Correlation analysis between fuel prices and ticket prices / surcharges  
-- **H3:** Group comparisons based on route type (short vs long haul)  
-- **H4:** Analysis of conflict events and their effect on fuel prices and airfare  
+Machine learning methods are used to complement statistical inference with predictive modeling of life expectancy outcomes:
 
----
-
-### 6.3 Machine Learning Analysis  
-
-- **Regression models:** Linear Regression, Ridge, Lasso, Random Forest, Gradient Boosting  
-- **Classification:** Categorizing ticket prices into low / medium / high groups  
-- **Clustering:** Identifying airline groups with similar pricing behavior  
-- **Evaluation:** RMSE, R², Accuracy, F1-score, Silhouette score  
+- **Regression models:** Linear Regression (baseline), Ridge, Lasso, ElasticNet, Random Forest, Gradient Boosting, and SVR — predicting life expectancy at birth (years) from GDP per capita, healthcare expenditure per capita, and healthcare spending as % of GDP.
+- **Explainability:** SHAP values computed on the best-performing tree-based model to quantify each feature's contribution and test the mediation effect proposed in H4.
+- **Classification task:** Countries classified into life expectancy tiers (Low / Middle / High) based on income group, healthcare spending level, and regional indicators.
+- **Clustering:** K-Means and hierarchical clustering to identify countries that achieve high life expectancy despite moderate GDP — empirical test of H4.
+- **Evaluation:** Time-aware train–test split (pre-2015 train, 2015–present test); regression evaluated using RMSE and R²; classification using accuracy, F1-score, and confusion matrices; clustering using silhouette scores.
 
 ---
 
-## 7. Expected Results  
+---
 
-The project expects to find a positive relationship between oil and jet fuel prices and airline ticket prices. Fuel surcharges are expected to increase with rising fuel costs.  
+## 7. Expected Results
 
-Airlines operating long-haul routes are expected to be more sensitive to fuel price changes. Conflict-related disruptions are expected to further increase both fuel prices and ticket prices.  
+The project expects to find a positive relation between GDP per capita and life expectancy across countries. Health outcomes are expected to improve by higher healthcare spending. The positive effect of GDP on life expectancy is expected to be partially mediated by healthcare investment, consistent with H3. Countries with efficient healthcare systems are expected to achieve higher life expectancy even at lower GDP levels, supporting H4.
 
-These findings will highlight that airline pricing is strongly influenced by energy markets and external geopolitical factors.
+These findings will highlight that improvements in population health depend not only on economic growth, but same as the effective usage of resources toward healthcare systems.
+
+---
+
+*End of README.md*
