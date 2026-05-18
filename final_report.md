@@ -32,10 +32,10 @@ The machine learning notebook used a similar merged dataset after additional pre
 
 The main hypotheses were defined as follows:
 
-- $H_0$: GDP per capita and healthcare expenditure have no significant relationship with life expectancy.
-- $H_1$: GDP per capita is associated with healthcare expenditure.
-- $H_2$: GDP per capita is associated with life expectancy.
-- $H_3$: Healthcare expenditure is associated with life expectancy.
+- H_0: GDP per capita and healthcare expenditure have no significant relationship with life expectancy.
+- H_1: GDP per capita is associated with healthcare expenditure.
+- H_2: GDP per capita is associated with life expectancy.
+- H_3: Healthcare expenditure is associated with life expectancy.
 
 The results support all three alternative hypotheses. GDP per capita and healthcare expenditure showed a very strong positive relationship. The Pearson correlation was *r* = 0.937, and the Spearman correlation was *rho* = 0.943, both with p-values reported as approximately zero. This suggests that countries with higher GDP per capita generally spend more on healthcare.
 
