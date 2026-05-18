@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA210 Project Dashboard | Economic Development and Health Outcomes</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --blue: #0284c7;
+      --sky: #38bdf8;
+      --teal: #14b8a6;
+      --violet: #7c3aed;
+      --green: #059669;
+      --dark: #020617;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 5% 0%, rgba(56, 189, 248, 0.22), transparent 32%),
+        radial-gradient(circle at 90% 8%, rgba(124, 58, 237, 0.16), transparent 28%),
+        linear-gradient(180deg, #f8fafc 0%, #eef6ff 48%, #ffffff 100%);
+      color: var(--ink);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--dark);
+      box-shadow: 0 16px 30px rgba(2, 6, 23, 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 14px;
+    }
+
+    .btn.dark { background: var(--dark); color: white; }
+    .btn.dark:hover { transform: translateY(-1px); background: var(--blue); }
+    .btn.light { background: white; color: var(--ink); border: 1px solid var(--line); }
+    .btn.light:hover { border-color: #bae6fd; color: var(--blue); }
+
+    .hero {
+      padding: 84px 0 48px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    h3 { margin: 0; }
+    p { line-height: 1.7; }
+    .lead {
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 690px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      border: 1px solid #bae6fd;
+      background: #f0f9ff;
+      color: #0369a1;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero-card {
+      border: 1px solid rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.86);
+      border-radius: 34px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .dark-panel {
+      background: var(--dark);
+      color: white;
+      border-radius: 26px;
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .dark-panel:after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -70px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(56,189,248,.45), transparent 70%);
+      pointer-events: none;
+    }
+
+    .mini-title {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin: 0 0 4px;
+    }
+
+    .chart-note {
+      color: #cbd5e1;
+      margin: 14px 0 0;
+      font-size: 14px;
+      max-width: 560px;
+    }
+
+    section { padding: 72px 0; scroll-margin-top: 96px; }
+    section.alt { background: rgba(255,255,255,0.62); border-top: 1px solid rgba(226,232,240,0.7); border-bottom: 1px solid rgba(226,232,240,0.7); }
+
+    .section-head {
+      margin-bottom: 30px;
+      max-width: 780px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 24px;
+    }
+
+    .stat-card, .card, .chart-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+    }
+
+    .stat-card {
+      padding: 22px;
+      transition: 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(15,23,42,0.10);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #e0f2fe;
+      color: #0369a1;
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .stat-label { margin: 0; color: var(--muted); font-weight: 750; font-size: 14px; }
+    .stat-value { margin: 4px 0 0; font-weight: 950; font-size: 26px; letter-spacing: -0.03em; }
+    .stat-note { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+
+    .two { grid-template-columns: 0.9fr 1.1fr; }
+    .three { grid-template-columns: repeat(3, 1fr); }
+    .four { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      padding: 26px;
+    }
+
+    .question {
+      font-size: 26px;
+      line-height: 1.25;
+      margin-top: 12px;
+      letter-spacing: -0.04em;
+    }
+
+    .data-table {
+      margin-top: 24px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 10px;
+      padding: 16px 20px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
+
+    .data-row.head {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      font-weight: 900;
+    }
+
+    .data-row strong { color: var(--ink); }
+    .data-row.head strong { color: white; }
+    .muted { color: var(--muted); }
+
+    .chart-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chart-card {
+      padding: 22px;
+    }
+
+    .chart-card.wide { grid-column: 1 / -1; }
+
+    .chart-title {
+      margin-bottom: 18px;
+    }
+
+    .chart-title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .bar-chart {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 150px 1fr 52px;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .bar-track {
+      height: 18px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--sky));
+      width: var(--w);
+      animation: grow 900ms ease both;
+    }
+
+    @keyframes grow {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    .vertical-bars {
+      display: flex;
+      align-items: end;
+      justify-content: space-around;
+      height: 260px;
+      padding-top: 12px;
+      border-bottom: 1px solid var(--line);
+      gap: 10px;
+    }
+
+    .vbar {
+      flex: 1;
+      max-width: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      height: 100%;
+      gap: 8px;
+    }
+
+    .vbar-value {
+      font-weight: 950;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .vbar-fill {
+      width: 76%;
+      min-height: 28px;
+      height: var(--h);
+      border-radius: 18px 18px 0 0;
+      background: linear-gradient(180deg, var(--teal), #67e8f9);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+      animation: rise 900ms ease both;
+    }
+
+    @keyframes rise {
+      from { height: 0; }
+      to { height: var(--h); }
+    }
+
+    .vbar-label {
+      text-align: center;
+      color: var(--muted);
+      font-weight: 750;
+      font-size: 12px;
+      min-height: 36px;
+    }
+
+    .area-chart {
+      height: 300px;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .hypothesis-card {
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(15,23,42,.05);
+    }
+
+    .hyp-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .tag {
+      background: var(--dark);
+      color: white;
+      border-radius: 14px;
+      padding: 6px 10px;
+      font-weight: 950;
+      font-size: 13px;
+    }
+
+    .supported {
+      background: #ecfdf5;
+      color: #047857;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .metric-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 18px;
+    }
+
+    .metric-switch button {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #f1f5f9;
+      color: var(--muted);
+    }
+
+    .metric-switch button.active {
+      background: var(--dark);
+      color: white;
+    }
+
+    .model-row {
+      display: grid;
+      grid-template-columns: 118px 1fr 56px;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    .model-fill {
+      height: 20px;
+      border-radius: 999px;
+      width: var(--w);
+      background: linear-gradient(90deg, var(--violet), #c084fc);
+      animation: grow 900ms ease both;
+    }
+
+    .best-model {
+      background: var(--dark);
+      color: white;
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-box {
+      background: rgba(255,255,255,.10);
+      border-radius: 20px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .metric-box div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .metric-box b {
+      font-size: 25px;
+    }
+
+    .metric-box p {
+      margin: 5px 0 0;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .takeaway {
+      background: var(--dark);
+      color: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .takeaway h3 {
+      font-size: 32px;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      margin-top: 12px;
+    }
+
+    .take-grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 20px;
+    }
+
+    .take-mini {
+      background: rgba(255,255,255,.10);
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    .take-mini b {
+      font-size: 28px;
+      display: block;
+      margin: 4px 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: white;
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .scatter-svg {
+      width: 100%;
+      height: 300px;
+      display: block;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .two, .chart-grid { grid-template-columns: 1fr; }
+      .stats, .three, .four { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .hero { padding-top: 54px; }
+      .data-row { grid-template-columns: 1fr; }
+      .data-row.head { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .stats, .three, .four, .take-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      nav { height: auto; padding: 12px 0; align-items: flex-start; }
+      .brand-mark { width: 38px; height: 38px; }
+      .bar-row, .model-row { grid-template-columns: 1fr; gap: 6px; }
+      .vertical-bars { height: 230px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="brand" href="#top">
+        <span class="brand-mark">◎</span>
+        <span>
+          <span style="display:block; line-height:1">DSA210</span>
+          <span class="muted" style="font-size:12px; font-weight:750">Health Outcomes Dashboard</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#eda">EDA</a>
+        <a href="#ml">ML</a>
+        <a href="#conclusion">Conclusion</a>
+      </div>
+      <a class="btn dark" href="https://github.com/handeunaldi/dsa-210-project" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <div class="badge-row">
+          <span class="badge">GDP per capita</span>
+          <span class="badge">Healthcare spending</span>
+          <span class="badge">Life expectancy</span>
+        </div>
+        <h1>Economic Development and Health Outcomes</h1>
+        <p class="lead">
+          A visual project website exploring how GDP per capita and healthcare expenditure relate to life expectancy across countries, supported by EDA, hypothesis testing, and machine learning.
+        </p>
+        <div class="hero-actions">
+          <a class="btn dark" href="#eda">View visualizations</a>
+          <a class="btn light" href="#ml">See ML results</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="dark-panel">
+          <p class="mini-title">Main project relationship</p>
+          <h3 style="font-size:24px">Income, spending and health</h3>
+          <svg class="scatter-svg" viewBox="0 0 520 300" aria-label="Scatter plot showing positive relationship between log GDP and life expectancy">
+            <defs>
+              <linearGradient id="gridGrad" x1="0" x2="1">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#a78bfa" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(54,24)">
+              <line x1="0" y1="230" x2="430" y2="230" stroke="rgba(255,255,255,.25)" />
+              <line x1="0" y1="0" x2="0" y2="230" stroke="rgba(255,255,255,.25)" />
+              <g stroke="rgba(255,255,255,.08)">
+                <line x1="0" y1="184" x2="430" y2="184"/>
+                <line x1="0" y1="138" x2="430" y2="138"/>
+                <line x1="0" y1="92" x2="430" y2="92"/>
+                <line x1="0" y1="46" x2="430" y2="46"/>
+                <line x1="86" y1="0" x2="86" y2="230"/>
+                <line x1="172" y1="0" x2="172" y2="230"/>
+                <line x1="258" y1="0" x2="258" y2="230"/>
+                <line x1="344" y1="0" x2="344" y2="230"/>
+              </g>
+              <path d="M20 210 C110 190, 170 150, 245 112 S345 54, 410 36" fill="none" stroke="url(#gridGrad)" stroke-width="4" stroke-linecap="round"/>
+              <g fill="#38bdf8" opacity=".95">
+                <circle cx="25" cy="202" r="6"/>
+                <circle cx="68" cy="185" r="6"/>
+                <circle cx="112" cy="164" r="6"/>
+                <circle cx="160" cy="139" r="6"/>
+                <circle cx="205" cy="119" r="6"/>
+                <circle cx="248" cy="94" r="6"/>
+                <circle cx="295" cy="80" r="6"/>
+                <circle cx="337" cy="62" r="6"/>
+                <circle cx="382" cy="50" r="6"/>
+                <circle cx="418" cy="39" r="6"/>
+              </g>
+              <text x="160" y="268" fill="#cbd5e1" font-size="13">Log GDP per capita</text>
+              <text x="-24" y="-8" fill="#cbd5e1" font-size="13">Life expectancy</text>
+            </g>
+          </svg>
+          <p class="chart-note">
+            Pattern shown for presentation: higher income and healthcare spending generally align with longer life expectancy, with diminishing returns at the top.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap grid stats">
+      <div class="stat-card">
+        <div class="icon">▦</div>
+        <p class="stat-label">EDA observations</p>
+        <p class="stat-value">4,043</p>
+        <p class="stat-note">merged country-year rows</p>
+      </div>
+      <div class="stat-card">
+        <div class="icon">♡</div>
+        <p class="stat-label">Main target</p>
+        <p class="stat-value">Life expectancy</p>
+        <p class="stat-note">health outcome variable</p>
+      </div>
+      <div class="stat-card">
+        <div class="icon">↗</div>
+        <p class="stat-label">Core predictors</p>
+        <p class="stat-value">GDP + Health</p>
+        <p class="stat-note">economic and spending indicators</p>
+      </div>
+      <div class="stat-card">
+        <div class="icon">◴</div>
+        <p class="stat-label">ML test years</p>
+        <p class="stat-value">2022–2023</p>
+        <p class="stat-note">time-aware evaluation</p>
+      </div>
+    </div>
+
+    <section id="overview">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Project overview</p>
+          <h2>What the project asks</h2>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <p class="eyebrow" style="color:#64748b">Main question</p>
+            <h3 class="question">How do economic development indicators affect life expectancy across countries?</h3>
+            <p class="muted">
+              The project connects GDP per capita, healthcare expenditure, and life expectancy to understand whether economic growth improves population health directly or through stronger healthcare investment.
+            </p>
+          </div>
+
+          <div class="grid two">
+            <div class="card">
+              <div class="icon" style="background:#f1f5f9;color:#020617">⌕</div>
+              <h3>EDA and hypothesis testing</h3>
+              <p class="muted">The analysis uses log-transformed GDP and healthcare spending, correlation analysis, group comparisons, and regional visualizations to identify broad patterns.</p>
+            </div>
+            <div class="card">
+              <div class="icon" style="background:#f1f5f9;color:#020617">◈</div>
+              <h3>Predictive modeling</h3>
+              <p class="muted">Machine learning models predict life expectancy using economic, healthcare, temporal, and regional features, with a time-aware train/test split.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-table">
+          <div class="data-row head">
+            <strong>Dataset</strong><strong>Variable</strong><strong>Purpose</strong>
+          </div>
+          <div class="data-row">
+            <strong>World Bank WDI</strong><span class="muted">GDP per capita</span><span class="muted">Economic development indicator</span>
+          </div>
+          <div class="data-row">
+            <strong>WHO / World Bank</strong><span class="muted">Life expectancy</span><span class="muted">Primary health outcome</span>
+          </div>
+          <div class="data-row">
+            <strong>WHO GHED / WDI</strong><span class="muted">Healthcare expenditure per capita</span><span class="muted">Healthcare system investment</span>
+          </div>
+          <div class="data-row">
+            <strong>OWID region labels</strong><span class="muted">World region</span><span class="muted">Geographic comparison and ML feature</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="eda" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Data visualization</p>
+          <h2>EDA findings turned into dashboard charts</h2>
+        </div>
+
+        <div class="grid chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">
+              <h3>Correlation strength</h3>
+              <p>Pearson correlations from the EDA notebook</p>
+            </div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <strong>GDP ↔ Health</strong>
+                <div class="bar-track"><div class="bar-fill" style="--w:93.7%"></div></div>
+                <strong>0.937</strong>
+              </div>
+              <div class="bar-row">
+                <strong>Health ↔ Life</strong>
+                <div class="bar-track"><div class="bar-fill" style="--w:83.1%"></div></div>
+                <strong>0.831</strong>
+              </div>
+              <div class="bar-row">
+                <strong>GDP ↔ Life</strong>
+                <div class="bar-track"><div class="bar-fill" style="--w:82.3%"></div></div>
+                <strong>0.823</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-title">
+              <h3>High vs low groups</h3>
+              <p>Mean life expectancy after median split</p>
+            </div>
+            <div class="vertical-bars">
+              <div class="vbar">
+                <span class="vbar-value">64.58</span>
+                <div class="vbar-fill" style="--h:62%"></div>
+                <span class="vbar-label">Low GDP</span>
+              </div>
+              <div class="vbar">
+                <span class="vbar-value">76.33</span>
+                <div class="vbar-fill" style="--h:88%; background:linear-gradient(180deg,#0284c7,#38bdf8)"></div>
+                <span class="vbar-label">High GDP</span>
+              </div>
+              <div class="vbar">
+                <span class="vbar-value">64.69</span>
+                <div class="vbar-fill" style="--h:62%"></div>
+                <span class="vbar-label">Low Health</span>
+              </div>
+              <div class="vbar">
+                <span class="vbar-value">76.22</span>
+                <div class="vbar-fill" style="--h:87%; background:linear-gradient(180deg,#0284c7,#38bdf8)"></div>
+                <span class="vbar-label">High Health</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card wide">
+            <div class="chart-title">
+              <h3>Regional comparison</h3>
+              <p>Average life expectancy by region</p>
+            </div>
+            <svg class="area-chart" viewBox="0 0 980 300" aria-label="Area chart of average life expectancy by region">
+              <defs>
+                <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#0284c7" stop-opacity=".45"/>
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity=".04"/>
+                </linearGradient>
+              </defs>
+              <g transform="translate(48,20)">
+                <line x1="0" y1="230" x2="880" y2="230" stroke="#e2e8f0"/>
+                <line x1="0" y1="0" x2="0" y2="230" stroke="#e2e8f0"/>
+                <g stroke="#f1f5f9">
+                  <line x1="0" y1="184" x2="880" y2="184"/>
+                  <line x1="0" y1="138" x2="880" y2="138"/>
+                  <line x1="0" y1="92" x2="880" y2="92"/>
+                  <line x1="0" y1="46" x2="880" y2="46"/>
+                </g>
+                <path d="M0 58 L176 95 L352 107 L528 70 L704 195 L880 101 L880 230 L0 230 Z" fill="url(#areaGrad)"/>
+                <path d="M0 58 L176 95 L352 107 L528 70 L704 195 L880 101" fill="none" stroke="#0284c7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <g fill="#0284c7">
+                  <circle cx="0" cy="58" r="5"/><circle cx="176" cy="95" r="5"/><circle cx="352" cy="107" r="5"/>
+                  <circle cx="528" cy="70" r="5"/><circle cx="704" cy="195" r="5"/><circle cx="880" cy="101" r="5"/>
+                </g>
+                <g fill="#64748b" font-size="13" font-weight="700" text-anchor="middle">
+                  <text x="0" y="260">Europe</text><text x="176" y="260">S. America</text><text x="352" y="260">Asia</text>
+                  <text x="528" y="260">N. America</text><text x="704" y="260">Africa</text><text x="880" y="260">Oceania</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="grid four" style="margin-top:24px">
+          <div class="hypothesis-card">
+            <div class="hyp-top"><span class="tag">H1</span><span class="supported">Supported</span></div>
+            <h3>GDP and healthcare expenditure move together</h3>
+            <p class="muted">Pearson r = 0.937; Spearman rho = 0.943</p>
+          </div>
+          <div class="hypothesis-card">
+            <div class="hyp-top"><span class="tag">H2</span><span class="supported">Supported</span></div>
+            <h3>Higher GDP is associated with longer life expectancy</h3>
+            <p class="muted">Pearson r = 0.823; high-GDP mean = 76.33 years</p>
+          </div>
+          <div class="hypothesis-card">
+            <div class="hyp-top"><span class="tag">H3</span><span class="supported">Supported</span></div>
+            <h3>Higher healthcare spending is associated with longer life expectancy</h3>
+            <p class="muted">Pearson r = 0.831; high-spending mean = 76.22 years</p>
+          </div>
+          <div class="hypothesis-card">
+            <div class="hyp-top"><span class="tag">H4</span><span class="supported">Limitation</span></div>
+            <h3>Efficiency and context matter beyond income alone</h3>
+            <p class="muted">Some prediction errors may reflect factors not in the dataset.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ml">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Machine learning</p>
+          <h2>Model comparison and final Random Forest performance</h2>
+        </div>
+
+        <div class="grid two">
+          <div class="chart-card">
+            <div class="chart-title">
+              <h3>Model comparison</h3>
+              <p>Switch between R², RMSE, and MAE</p>
+            </div>
+            <div class="metric-switch">
+              <button class="active" data-metric="r2">R²</button>
+              <button data-metric="rmse">RMSE</button>
+              <button data-metric="mae">MAE</button>
+            </div>
+            <div id="modelChart"></div>
+          </div>
+
+          <div class="best-model">
+            <p class="eyebrow" style="color:#7dd3fc">Best model</p>
+            <h3 style="font-size:28px">Tuned Random Forest</h3>
+            <div class="metric-box">
+              <div><span>MAE</span><b>2.658</b></div>
+              <p>average error in years</p>
+            </div>
+            <div class="metric-box">
+              <div><span>RMSE</span><b>4.024</b></div>
+              <p>penalizes large errors</p>
+            </div>
+            <div class="metric-box">
+              <div><span>R²</span><b>0.715</b></div>
+              <p>variance explained</p>
+            </div>
+            <div class="metric-box">
+              <div><span>CV R²</span><b>0.789</b></div>
+              <p>best cross-validation score</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid three" style="margin-top:24px">
+          <div class="card">
+            <div class="icon" style="background:#f1f5f9;color:#020617">▤</div>
+            <h3>Why Random Forest fits this project</h3>
+            <p class="muted">GDP and healthcare spending may have non-linear effects. Random Forest can capture threshold effects and diminishing returns better than a plain linear model.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#f1f5f9;color:#020617">◴</div>
+            <h3>Why the time-aware split matters</h3>
+            <p class="muted">The model trains on earlier years and tests on 2022–2023. This makes evaluation more realistic and reduces temporal leakage.</p>
+          </div>
+          <div class="card">
+            <div class="icon" style="background:#f1f5f9;color:#020617">+</div>
+            <h3>Important limitation</h3>
+            <p class="muted">Large errors may come from missing factors such as education, inequality, conflict, public health quality, or healthcare efficiency.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusion" class="alt">
+      <div class="wrap grid two">
+        <div class="card">
+          <p class="eyebrow">Final interpretation</p>
+          <h2>What the project shows</h2>
+          <p class="muted">
+            The visual and statistical results support the idea that countries with higher GDP per capita and higher healthcare expenditure generally have longer life expectancy. However, the relationship is not purely linear: at higher income and spending levels, gains in life expectancy become smaller.
+          </p>
+          <p class="muted">
+            The machine learning results strengthen this interpretation by showing that economic and healthcare indicators are useful predictors of life expectancy, while unexplained errors may point to social, political, and healthcare-system factors outside the dataset.
+          </p>
+        </div>
+
+        <div class="takeaway">
+          <p class="eyebrow" style="color:#7dd3fc">Website-ready takeaway</p>
+          <h3>Economic growth matters, but health outcomes also depend on how effectively resources are converted into public health.</h3>
+          <div class="grid take-grid">
+            <div class="take-mini">
+              <span class="muted" style="color:#cbd5e1">Strongest correlation</span>
+              <b>0.937</b>
+              <span>GDP ↔ health spending</span>
+            </div>
+            <div class="take-mini">
+              <span class="muted" style="color:#cbd5e1">Best test R²</span>
+              <b>0.718</b>
+              <span>Random Forest model zoo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-flex">
+      <span>DSA210 Project Website · Economic Development and Health Outcomes</span>
+      <span>Built for data visualization, project summary, and final presentation.</span>
+    </div>
+  </footer>
+
+  <script>
+    const modelResults = [
+      { model: "Random Forest", rmse: 4.001, mae: 2.607, r2: 0.718 },
+      { model: "Ridge", rmse: 4.258, mae: 3.015, r2: 0.681 },
+      { model: "Linear", rmse: 4.297, mae: 3.025, r2: 0.675 },
+      { model: "Decision Tree", rmse: 4.6, mae: 3.17, r2: 0.628 },
+      { model: "Baseline", rmse: 8.044, mae: 6.552, r2: -0.138 }
+    ];
+
+    const chart = document.getElementById("modelChart");
+    const buttons = document.querySelectorAll(".metric-switch button");
+
+    function renderModelChart(metric) {
+      const values = modelResults.map(d => d[metric]);
+      const max = metric === "r2" ? 1 : Math.max(...values);
+      chart.innerHTML = modelResults.map(row => {
+        const raw = row[metric];
+        const width = metric === "r2"
+          ? Math.max(4, Math.abs(raw) * 100)
+          : Math.max(4, (raw / max) * 100);
+        return `
+          <div class="model-row">
+            <strong>${row.model}</strong>
+            <div class="bar-track">
+              <div class="model-fill" style="--w:${width}%"></div>
+            </div>
+            <strong>${raw.toFixed(metric === "r2" ? 3 : 2)}</strong>
+          </div>
+        `;
+      }).join("");
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderModelChart(btn.dataset.metric);
+      });
+    });
+
+    renderModelChart("r2");
+  </script>
+</body>
+</html>
